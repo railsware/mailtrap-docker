@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -eu
+
+for i in {0..5}; do
+  port=$(($CLUSTER_INITIAL_PORT + $i))
+  nodes+=("127.0.0.1:${port}")
+done
+
+exec redis-cli --cluster-yes --cluster create --cluster-replicas 1 ${nodes[@]}

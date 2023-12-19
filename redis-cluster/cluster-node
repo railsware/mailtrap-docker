@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -eu
+
+port=$(($CLUSTER_INITIAL_PORT + $1))
+dir="/data/${port}"
+
+mkdir -p $dir
+
+exec redis-server \
+  --dir $dir \
+  --port $port \
+  --bind 0.0.0.0 \
+  --cluster-enabled yes \
+  --cluster-config-file nodes.conf \
+  --cluster-node-timeout 15000 \
+  --databases 1 \
+  --appendonly yes \
+  --protected-mode no

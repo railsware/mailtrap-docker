@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  redis-cluster:
+    build:
+      context: .
+    environment:
+      CLUSTER_INITIAL_PORT: "6480"
+    ports:
+      - "6480-6485:6480-6485"
